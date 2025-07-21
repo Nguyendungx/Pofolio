@@ -21,9 +21,9 @@ export default function Projects() {
         "Completed full CRUD operations across all user roles",
       ],
       links: {
-        web: "#",
-        mobile: "#",
-        demo: "#",
+        web: "https://studgart.com/",
+        mobile: "https://github.com/timastoicguy/studgart-job-listing-mobile.git",
+        demo: "https://github.com/timastoicguy/studgart-job-listing.git",
       },
     },
   ]
