@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description:
     "Portfolio of Dung Nguyen, a motivated Frontend Developer with experience in ReactJS, React Native, TypeScript, and modern web technologies.",
   keywords: "Frontend Developer, ReactJS, React Native, TypeScript, JavaScript, Portfolio, Web Developer",
-    generator: 'v0.dev'
+    generator: 'Next.js',
 }
 
 export default function RootLayout({
