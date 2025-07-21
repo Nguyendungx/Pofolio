@@ -265,7 +265,7 @@ export default function Contact() {
           <p className="text-gray-400 mb-4">© 2025 Dung Nguyen. All rights reserved.</p>
           <div className="flex justify-center space-x-6">
             <motion.a
-              href="#"
+              href="https://github.com/Nguyendungx?tab=repositories"
               className="text-gray-400 hover:text-blue-400 transition-colors duration-300"
               whileHover={{ scale: 1.2, rotate: 360 }}
               transition={{ duration: 0.3 }}
