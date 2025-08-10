@@ -32,7 +32,7 @@ export default function Education() {
 
                 <div className="bg-gray-800 p-4 rounded-lg">
                   <span className="text-blue-300 font-semibold">GPA: </span>
-                  <span className="text-white text-lg font-bold">3.2 / 4.0</span>
+                  <span className="text-white text-lg font-bold">3.21 / 4.0</span>
                 </div>
               </div>
             </div>

@@ -11,6 +11,7 @@ export default function Skills() {
       title: "Frontend",
       skills: [
         { name: "ReactJS", level: 90 },
+        { name: "NextJS", level: 80 },
         { name: "React Native", level: 85 },
         { name: "TypeScript", level: 80 },
         { name: "JavaScript", level: 90 },
@@ -20,7 +21,9 @@ export default function Skills() {
     {
       title: "Backend & Database",
       skills: [
-        { name: "NodeJS", level: 75 },
+        { name: "NodeJS", level: 80 },
+        { name: "ExpressJS", level: 80 },
+        { name: "Java", level: 70 },
         { name: "MongoDB", level: 70 },
         { name: "Firebase", level: 80 },
       ],
@@ -29,8 +32,11 @@ export default function Skills() {
       title: "Tools & Others",
       skills: [
         { name: "Git/GitHub", level: 85 },
+        { name: "JWT", level: 85 },
         { name: "Zustand", level: 80 },
         { name: "Socket.IO", level: 75 },
+        { name: "Swagger", level: 80 },
+        
       ],
     },
   ]

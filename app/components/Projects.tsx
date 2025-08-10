@@ -6,9 +6,26 @@ import { ExternalLink, Github } from "lucide-react"
 export default function Projects() {
   const projects = [
     {
+      title: "ChatApp - Backend Chat App",
+      period: "August 2025 - Present",
+      role: "Backend Developer",
+      tech: " NodeJS, ExpressJS, MongoDB, Socket.IO",
+      description:
+        "Backend ChatApp — a server-side processing system for real-time chat applications, developed using Node.js and Express.js.",
+      features: [
+        "Integrate JWT for authentication and password encryption to ensure user data security.",
+        "Create APIs using NodeJs, ExpressJs and Swagger for CRUD functionality.",
+        "Integrated RESTful APIs and real-time notifications using Socket.IO.",
+        "Use MongoDB as database, use swagger as UI to test API.", 
+      ],
+      links: {
+        backend: "https://github.com/Nguyendungx/Backend_Ecom.git",
+      },
+    },
+    {
       title: "STUDGART - IT Job Platform",
-      period: "Jan 2025 - Present",
-      role: "Frontend Developer",
+      period: "Jan 2025 - May 2025",
+      role: "Frontend Developer, Mobile Developer",
       tech: "ReactJS, React Native, ShadCN UI, Gluestack, Zustand, Socket.IO",
       description:
         "A comprehensive web and mobile platform that connects recruiters, job seekers, and companies for seamless hiring.",
@@ -24,6 +41,25 @@ export default function Projects() {
         web: "https://github.com/timastoicguy/studgart-job-listing.git",
         mobile: "https://github.com/timastoicguy/studgart-job-listing-mobile.git",
         demo: "https://www.youtube.com/watch?v=-P2b3U866sM&t=1s",
+      },
+    },
+    {
+      title: "EduStore -Ecommerce Website",
+      period: "July 2025 - August 2025",
+      role: "Full Stack Developer",
+      tech: "ReactJS, ShadCN UI, NodeJS, ExpressJS, MongoDB, TailwindCSS, Zustand, Socket.IO",
+      description:
+        "EduStore is an e-commerce platform for education/language courses, materials, events and articles. The app is built with Next.js 15, TypeScript, Ant Design, Tailwind CSS and deployed on Vercel.",
+      features: [
+        "Developed responsive web interfaces using ReactJS and ShadCN UI",
+        "Create APIs using NodeJs, ExpressJs and Swagger for CRUD functionality.",
+        "Integrated RESTful APIs and real-time notifications using Socket.IO",
+        "Using JWT and using Token for authentication", 
+      ],
+      links: {
+        frontend: "https://github.com/Nguyendungx/ecommerce-app.git",
+        backend: "https://github.com/Nguyendungx/Backend_Ecom.git",
+        demo: "https://ecommerce-app-git-master-nguyen-hung-dungs-projects.vercel.app/",
       },
     },
   ]
@@ -152,41 +188,71 @@ export default function Projects() {
                     transition={{ duration: 0.6, delay: 0.6 }}
                     viewport={{ once: true }}
                   >
-                    <motion.a
-                      href={project.links.web}
-                      className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors duration-300 relative overflow-hidden group"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <motion.div
-                        className="absolute inset-0 bg-blue-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"
-                        initial={{ x: "-100%" }}
-                        whileHover={{ x: "0%" }}
-                        transition={{ duration: 0.3 }}
-                      />
-                      <ExternalLink size={16} className="relative z-10" />
-                      <span className="relative z-10">Web</span>
-                    </motion.a>
+                    {project.links.web && (
+                      <motion.a
+                        href={project.links.web}
+                        className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors duration-300 relative overflow-hidden group"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <motion.div
+                          className="absolute inset-0 bg-blue-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"
+                          initial={{ x: "-100%" }}
+                          whileHover={{ x: "0%" }}
+                          transition={{ duration: 0.3 }}
+                        />
+                        <ExternalLink size={16} className="relative z-10" />
+                        <span className="relative z-10">Web</span>
+                      </motion.a>
+                    )}
 
-                    <motion.a
-                      href={project.links.mobile}
-                      className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg transition-colors duration-300"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <Github size={16} />
-                      Mobile
-                    </motion.a>
+                    {project.links.mobile && (
+                      <motion.a
+                        href={project.links.mobile}
+                        className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg transition-colors duration-300"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Github size={16} />
+                        Mobile
+                      </motion.a>
+                    )}
 
-                    <motion.a
-                      href={project.links.demo}
-                      className="flex items-center gap-2 border border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-black px-4 py-2 rounded-lg transition-all duration-300"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <ExternalLink size={16} />
-                      Demo
-                    </motion.a>
+                    {project.links.frontend && (
+                      <motion.a
+                        href={project.links.frontend}
+                        className="flex items-center gap-2 bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg transition-colors duration-300"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Github size={16} />
+                        Frontend
+                      </motion.a>
+                    )}
+
+                    {project.links.backend && (
+                      <motion.a
+                        href={project.links.backend}
+                        className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg transition-colors duration-300"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Github size={16} />
+                        Backend
+                      </motion.a>
+                    )}
+
+                    {project.links.demo && (
+                      <motion.a
+                        href={project.links.demo}
+                        className="flex items-center gap-2 border border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-black px-4 py-2 rounded-lg transition-all duration-300"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <ExternalLink size={16} />
+                        Demo
+                      </motion.a>
+                    )}
                   </motion.div>
                 </motion.div>
 

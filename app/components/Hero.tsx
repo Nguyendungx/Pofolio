@@ -169,7 +169,7 @@ export default function Hero() {
             }}
             className="bg-gradient-to-r from-blue-300 via-blue-400 to-blue-300 bg-clip-text text-transparent bg-[length:200%_100%]"
           >
-            FRONTEND DEVELOPER
+            WEB/MOBILE DEVELOPER
           </motion.span>
         </motion.h2>
 
@@ -177,7 +177,7 @@ export default function Hero() {
           className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-8"
           variants={itemVariants}
         >
-          A motivated Frontend Developer with hands-on experience in ReactJS, JavaScript, NodeJS, and React Native
+          A motivated Web Developer/Mobile Developer with hands-on experience in ReactJS, JavaScript, NodeJS, and React Native
         </motion.p>
 
         <motion.div

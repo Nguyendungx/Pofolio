@@ -134,7 +134,7 @@ export default function About() {
                 ease: "linear",
               }}
             >
-              Frontend Developer
+              Web Developer
             </motion.h3>
 
             <motion.p
@@ -144,7 +144,7 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              A motivated Frontend Intern with hands-on experience in ReactJS, JavaScript, NodeJS, and React Native. I
+              A motivated Web Developer with hands-on experience in ReactJS, JavaScript, NodeJS, and React Native. I
               have completed a 3-month internship at FPT Software as a Frontend Developer, where I worked on real-world
               projects using ReactJS, TypeScript, Ant Design, and ShadCN.
             </motion.p>
@@ -190,7 +190,7 @@ export default function About() {
                 }}
               >
                 <h4 className="text-blue-400 font-semibold mb-2">Projects</h4>
-                <p className="text-gray-300">2+ Completed</p>
+                <p className="text-gray-300">5+ Completed</p>
               </motion.div>
             </motion.div>
           </motion.div>
