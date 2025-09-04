@@ -15,6 +15,7 @@ export default function Skills() {
         { name: "React Native", level: 85 },
         { name: "TypeScript", level: 80 },
         { name: "JavaScript", level: 90 },
+        { name: "Redux Toolkit", level: 80 },
         { name: "Tailwind CSS", level: 85 },
       ],
     },
@@ -25,6 +26,7 @@ export default function Skills() {
         { name: "ExpressJS", level: 80 },
         { name: "Java", level: 70 },
         { name: "MongoDB", level: 70 },
+        { name: "PostgreSQL", level: 70 },
         { name: "Firebase", level: 80 },
       ],
     },
@@ -36,7 +38,7 @@ export default function Skills() {
         { name: "Zustand", level: 80 },
         { name: "Socket.IO", level: 75 },
         { name: "Swagger", level: 80 },
-        
+        { name: "Docker", level: 70 },
       ],
     },
   ]

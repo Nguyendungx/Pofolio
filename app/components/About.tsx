@@ -44,7 +44,11 @@ export default function About() {
         className="absolute top-0 left-0 w-full h-full opacity-10"
         initial={{ rotate: 0 }}
         animate={{ rotate: 360 }}
-        transition={{ duration: 50, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+        transition={{
+          duration: 50,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "linear",
+        }}
       >
         <div className="absolute top-1/4 left-1/4 w-64 h-64 border border-blue-400 rounded-full" />
         <div className="absolute bottom-1/4 right-1/4 w-48 h-48 border border-blue-400 rounded-full" />
@@ -97,7 +101,9 @@ export default function About() {
                   ease: "linear",
                 }}
               />
-              <div className="relative z-10 text-6xl font-bold text-white">DN</div>
+              <div className="relative z-10 text-6xl font-bold text-white">
+                DN
+              </div>
 
               {/* Floating particles around avatar */}
               {[...Array(8)].map((_, i) => (
@@ -134,7 +140,7 @@ export default function About() {
                 ease: "linear",
               }}
             >
-              Web Developer
+              Web/Mobile Developer
             </motion.h3>
 
             <motion.p
@@ -144,9 +150,12 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              A motivated Web Developer with hands-on experience in ReactJS, JavaScript, NodeJS, and React Native. I
-              have completed a 3-month internship at FPT Software as a Frontend Developer, where I worked on real-world
-              projects using ReactJS, TypeScript, Ant Design, and ShadCN.
+              A motivated Web Developer with hands-on experience in ReactJS,
+              JavaScript, NodeJS, and React Native. I have completed a 7-month
+              internship across multiple companies as a Frontend Developer and
+              Fullstack Developer. I have experience in building and maintaining
+              web applications, where I worked on real-world projects using
+              ReactJS, TypeScript, Ant Design, and ShadCN.
             </motion.p>
 
             <motion.p
@@ -156,10 +165,12 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.4 }}
               viewport={{ once: true }}
             >
-              I contributed to the development of responsive and user-friendly web interfaces, familiar with
-              component-based architecture, API integration, and modern UI/UX practices. I actively collaborate with
-              team members to ensure scalable and maintainable code while continuously expanding my knowledge of current
-              web technologies and best practices.
+              I contributed to the development of responsive and user-friendly
+              web interfaces, familiar with component-based architecture, API
+              integration, and modern UI/UX practices. I actively collaborate
+              with team members to ensure scalable and maintainable code while
+              continuously expanding my knowledge of current web technologies
+              and best practices.
             </motion.p>
 
             <motion.div
@@ -178,7 +189,7 @@ export default function About() {
                 }}
               >
                 <h4 className="text-blue-400 font-semibold mb-2">Experience</h4>
-                <p className="text-gray-300">3+ Months</p>
+                <p className="text-gray-300">7+ Months</p>
               </motion.div>
 
               <motion.div
@@ -190,12 +201,12 @@ export default function About() {
                 }}
               >
                 <h4 className="text-blue-400 font-semibold mb-2">Projects</h4>
-                <p className="text-gray-300">5+ Completed</p>
+                <p className="text-gray-300">10+ Completed</p>
               </motion.div>
             </motion.div>
           </motion.div>
         </motion.div>
       </div>
     </section>
-  )
+  );
 }
