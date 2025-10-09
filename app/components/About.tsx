@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 
 export default function About() {
   const containerVariants = {
@@ -11,7 +11,7 @@ export default function About() {
         staggerChildren: 0.3,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { y: 50, opacity: 0 },
@@ -23,7 +23,7 @@ export default function About() {
         ease: "easeOut",
       },
     },
-  }
+  };
 
   const cardVariants = {
     hidden: { scale: 0.8, opacity: 0 },
@@ -35,7 +35,7 @@ export default function About() {
         ease: "easeOut",
       },
     },
-  }
+  };
 
   return (
     <section id="about" className="py-20 bg-gray-900 relative overflow-hidden">
@@ -151,8 +151,8 @@ export default function About() {
               viewport={{ once: true }}
             >
               A motivated Web Developer with hands-on experience in ReactJS,
-              JavaScript, NodeJS, and React Native. I have completed a 7-month
-              internship across multiple companies as a Frontend Developer and
+              JavaScript, NodeJS, and React Native. I have completed a nearly
+              one year of internship, fresher across multiple companies as a Frontend Developer and
               Fullstack Developer. I have experience in building and maintaining
               web applications, where I worked on real-world projects using
               ReactJS, TypeScript, Ant Design, and ShadCN.
@@ -189,7 +189,7 @@ export default function About() {
                 }}
               >
                 <h4 className="text-blue-400 font-semibold mb-2">Experience</h4>
-                <p className="text-gray-300">7+ Months</p>
+                <p className="text-gray-300">Nearly 1 Year</p>
               </motion.div>
 
               <motion.div
