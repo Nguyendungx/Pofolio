@@ -155,7 +155,7 @@ export default function About() {
               one year of internship, fresher across multiple companies as a Frontend Developer and
               Fullstack Developer. I have experience in building and maintaining
               web applications, where I worked on real-world projects using
-              ReactJS, TypeScript, Ant Design, and ShadCN.
+              ReactJS, TypeScript, Ant Design, Salesforce, and ShadCN.
             </motion.p>
 
             <motion.p
