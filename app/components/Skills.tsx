@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, Variants } from "framer-motion"
 import { useState } from "react"
 
 export default function Skills() {
@@ -25,6 +25,7 @@ export default function Skills() {
         { name: "NodeJS", level: 80 },
         { name: "ExpressJS", level: 80 },
         { name: "Java", level: 70 },
+        { name: "C#(.NET 8)", level: 70 },
         { name: "MongoDB", level: 70 },
         { name: "PostgreSQL", level: 70 },
         { name: "Firebase", level: 80 },
@@ -34,6 +35,7 @@ export default function Skills() {
       title: "Tools & Others",
       skills: [
         { name: "Git/GitHub", level: 85 },
+        { name: "SVN", level: 80 },
         { name: "JWT", level: 85 },
         { name: "Zustand", level: 80 },
         { name: "Socket.IO", level: 75 },
@@ -43,7 +45,7 @@ export default function Skills() {
     },
   ]
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -53,7 +55,7 @@ export default function Skills() {
     },
   }
 
-  const cardVariants = {
+  const cardVariants: Variants = {
     hidden: { y: 50, opacity: 0 },
     visible: {
       y: 0,
