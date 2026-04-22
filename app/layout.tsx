@@ -1,16 +1,25 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Epilogue, Manrope } from "next/font/google"
 import "./globals.css"
 
-const inter = Inter({ subsets: ["latin"] })
+const epilogue = Epilogue({ 
+  subsets: ["latin"],
+  variable: "--font-epilogue",
+  display: "swap",
+})
+
+const manrope = Manrope({ 
+  subsets: ["latin"],
+  variable: "--font-manrope",
+  display: "swap",
+})
 
 export const metadata: Metadata = {
-  title: "Dung Nguyen - Frontend Developer Portfolio",
+  title: "Dung Nguyen | Software Engineer",
   description:
-    "Portfolio of Dung Nguyen, a motivated Frontend Developer with experience in ReactJS, React Native, TypeScript, and modern web technologies.",
-  keywords: "Frontend Developer, ReactJS, React Native, TypeScript, JavaScript, Portfolio, Web Developer",
-    generator: 'Next.js',
+    "Portfolio of Dung Nguyen, a software engineer specializing in high-performance web and mobile applications with .NET, React, and Salesforce.",
+  keywords: "Software Engineer, Full Stack, .NET, React, Salesforce, Portfolio",
 }
 
 export default function RootLayout({
@@ -19,8 +28,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className={`${epilogue.variable} ${manrope.variable} scroll-smooth`}>
+      <body className="font-sans antialiased">{children}</body>
     </html>
   )
 }

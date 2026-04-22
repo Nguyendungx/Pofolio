@@ -1,197 +1,125 @@
 "use client"
 
 import { motion, Variants } from "framer-motion"
-import { useState } from "react"
+import { Code2, Database, Layout, Smartphone, Cloud, Terminal } from "lucide-react"
+
+const skillCategories = [
+  {
+    title: "Frontend",
+    icon: <Layout className="text-[var(--accent)]" />,
+    skills: ["ReactJS", "Next.js", "TypeScript", "Tailwind CSS", "Redux Toolkit", "Framer Motion"]
+  },
+  {
+    title: "Mobile",
+    icon: <Smartphone className="text-[var(--accent)]" />,
+    skills: ["React Native", "Flutter", "Mobile UI Design", "Cross-platform Dev"]
+  },
+  {
+    title: "Backend",
+    icon: <Database className="text-[var(--accent)]" />,
+    skills: ["Node.js", "Express", ".NET Core", "Entity Framework", "RESTful APIs"]
+  },
+  {
+    title: "Enterprise",
+    icon: <Cloud className="text-[var(--accent)]" />,
+    skills: ["Salesforce Apex", "LWC", "Visualforce", "CRM Customization"]
+  },
+  {
+    title: "Database",
+    icon: <Terminal className="text-[var(--accent)]" />,
+    skills: ["PostgreSQL", "SQL Server", "MySQL", "Data Migration"]
+  },
+  {
+    title: "Tools & Others",
+    icon: <Code2 className="text-[var(--accent)]" />,
+    skills: ["Git / GitLab", "Docker", "CI/CD", "Postman", "Agile/Scrum"]
+  }
+]
 
 export default function Skills() {
-  const [isVisible, setIsVisible] = useState(false)
-
-  const skillCategories = [
-    {
-      title: "Frontend",
-      skills: [
-        { name: "ReactJS", level: 90 },
-        { name: "NextJS", level: 80 },
-        { name: "React Native", level: 85 },
-        { name: "TypeScript", level: 80 },
-        { name: "JavaScript", level: 90 },
-        { name: "Redux Toolkit", level: 80 },
-        { name: "Tailwind CSS", level: 85 },
-      ],
-    },
-    {
-      title: "Backend & Database",
-      skills: [
-        { name: "NodeJS", level: 80 },
-        { name: "ExpressJS", level: 80 },
-        { name: "Java", level: 70 },
-        { name: "C#(.NET 8)", level: 70 },
-        { name: "MongoDB", level: 70 },
-        { name: "PostgreSQL", level: 70 },
-        { name: "Firebase", level: 80 },
-      ],
-    },
-    {
-      title: "Tools & Others",
-      skills: [
-        { name: "Git/GitHub", level: 85 },
-        { name: "SVN", level: 80 },
-        { name: "JWT", level: 85 },
-        { name: "Zustand", level: 80 },
-        { name: "Socket.IO", level: 75 },
-        { name: "Swagger", level: 80 },
-        { name: "Docker", level: 70 },
-      ],
-    },
-  ]
-
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.1,
       },
     },
   }
 
   const cardVariants: Variants = {
-    hidden: { y: 50, opacity: 0 },
-    visible: {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
       y: 0,
-      opacity: 1,
       transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
+        type: "spring",
+        stiffness: 100,
+        damping: 12
+      }
+    }
   }
 
   return (
-    <section id="skills" className="py-20 bg-black relative overflow-hidden">
-      {/* Animated background grid */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="grid grid-cols-12 gap-4 h-full">
-          {[...Array(144)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="bg-blue-400"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 0.5, 0] }}
-              transition={{
-                duration: 3,
-                repeat: Number.POSITIVE_INFINITY,
-                delay: Math.random() * 5,
-              }}
-            />
-          ))}
-        </div>
+    <section id="skills" className="relative overflow-hidden bg-[var(--bg-main)]">
+      {/* Background Decorative Lines */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+        <div className="absolute top-0 left-1/4 w-[1px] h-full bg-gradient-to-b from-transparent via-[var(--border)] to-transparent" />
+        <div className="absolute top-0 left-2/4 w-[1px] h-full bg-gradient-to-b from-transparent via-[var(--border)] to-transparent" />
+        <div className="absolute top-0 left-3/4 w-[1px] h-full bg-gradient-to-b from-transparent via-[var(--border)] to-transparent" />
       </div>
+      <div className="absolute inset-0 binary-bg" />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="section-container relative z-10">
         <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: -50 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
+          className="mb-20 text-center md:text-left"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Technical <span className="text-blue-400">Skills</span>
-          </h2>
-          <motion.div
-            className="w-24 h-1 bg-blue-400 mx-auto"
-            initial={{ width: 0 }}
-            whileInView={{ width: 96 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            viewport={{ once: true }}
-          />
+          <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-[var(--accent)] mb-4">Expertise</h2>
+          <h3 className="text-4xl md:text-5xl font-bold">Technical <span className="text-gradient">Arsenal.</span></h3>
         </motion.div>
 
-        <motion.div
-          className="grid md:grid-cols-3 gap-8"
+        <motion.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          onViewportEnter={() => setIsVisible(true)}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {skillCategories.map((category, index) => (
+          {skillCategories.map((category, i) => (
             <motion.div
-              key={index}
-              className="bg-gray-900 p-6 rounded-xl border border-blue-900/30 hover:border-blue-400/50 transition-all duration-300 relative overflow-hidden group"
+              key={i}
               variants={cardVariants}
-              whileHover={{
-                scale: 1.02,
-                boxShadow: "0 20px 40px rgba(59, 130, 246, 0.1)",
-              }}
+              whileHover={{ y: -10 }}
+              className="p-8 glass-panel group relative flex flex-col h-full"
             >
-              {/* Animated background effect */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-blue-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                initial={{ x: "-100%" }}
-                whileHover={{ x: "0%" }}
-                transition={{ duration: 0.5 }}
-              />
+              {/* Animated corner accent */}
+              <div className="absolute top-0 right-0 w-12 h-12 overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="absolute top-[-50%] right-[-50%] w-full h-full bg-[var(--accent)]/10 rotate-45" />
+              </div>
 
-              <motion.h3
-                className="text-xl font-bold text-blue-400 mb-6 text-center relative z-10"
-                whileHover={{ scale: 1.05 }}
-              >
-                {category.title}
-              </motion.h3>
-
-              <div className="space-y-4 relative z-10">
-                {category.skills.map((skill, skillIndex) => (
-                  <motion.div
-                    key={skillIndex}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{
-                      duration: 0.5,
-                      delay: skillIndex * 0.1 + index * 0.2,
-                    }}
-                    viewport={{ once: true }}
+              <div className="flex items-center gap-4 mb-6">
+                <motion.div 
+                  whileHover={{ rotate: 15 }}
+                  className="p-3 rounded-xl bg-[var(--bg-subtle)] border border-[var(--border)] group-hover:border-[var(--accent)]/30 transition-colors"
+                >
+                  {category.icon}
+                </motion.div>
+                <h4 className="text-xl font-bold">{category.title}</h4>
+              </div>
+              
+              <div className="flex flex-wrap gap-2 mt-auto">
+                {category.skills.map((skill, j) => (
+                  <motion.span 
+                    key={j}
+                    whileHover={{ scale: 1.05 }}
+                    className="px-3 py-1 bg-[var(--bg-subtle)] border border-[var(--border)] text-[10px] uppercase tracking-widest text-[var(--fg-muted)] rounded-full group-hover:text-[var(--fg-main)] transition-colors group-hover:border-[var(--accent)]/20"
                   >
-                    <div className="flex justify-between mb-2">
-                      <span className="text-gray-300">{skill.name}</span>
-                      <motion.span
-                        className="text-blue-400"
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ delay: 1 + skillIndex * 0.1 }}
-                        viewport={{ once: true }}
-                      >
-                        {skill.level}%
-                      </motion.span>
-                    </div>
-                    <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
-                      <motion.div
-                        className="bg-gradient-to-r from-blue-400 to-blue-600 h-2 rounded-full relative"
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        transition={{
-                          duration: 1.5,
-                          delay: 0.5 + skillIndex * 0.1,
-                          ease: "easeOut",
-                        }}
-                        viewport={{ once: true }}
-                      >
-                        <motion.div
-                          className="absolute inset-0 bg-white/30 rounded-full"
-                          animate={{
-                            x: ["-100%", "100%"],
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Number.POSITIVE_INFINITY,
-                            ease: "linear",
-                            delay: 1 + skillIndex * 0.2,
-                          }}
-                        />
-                      </motion.div>
-                    </div>
-                  </motion.div>
+                    {skill}
+                  </motion.span>
                 ))}
               </div>
             </motion.div>

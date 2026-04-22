@@ -9,23 +9,22 @@ import Skills from "./components/Skills"
 import Education from "./components/Education"
 import Contact from "./components/Contact"
 import Navigation from "./components/Navigation"
+import InteractiveTerminal from "./components/InteractiveTerminal"
+import CodeShowcase from "./components/CodeShowcase"
 
 export default function Portfolio() {
   return (
-    <motion.div
-      className="min-h-screen bg-black text-white"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
+    <main className="relative">
       <Navigation />
       <Hero />
+      <InteractiveTerminal />
       <About />
       <Experience />
       <Projects />
       <Skills />
+      <CodeShowcase />
       <Education />
       <Contact />
-    </motion.div>
+    </main>
   )
 }

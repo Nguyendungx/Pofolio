@@ -1,65 +1,104 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
 
-export default function Navigation() {
-  const [isOpen, setIsOpen] = useState(false)
+const navItems = [
+  { name: "About", href: "#about" },
+  { name: "Experience", href: "#experience" },
+  { name: "Projects", href: "#projects" },
+  { name: "Skills", href: "#skills" },
+  { name: "Contact", href: "#contact" },
+]
 
-  const navItems = [
-    { href: "#about", label: "About" },
-    { href: "#experience", label: "Experience" },
-    { href: "#projects", label: "Projects" },
-    { href: "#skills", label: "Skills" },
-    { href: "#education", label: "Education" },
-    { href: "#contact", label: "Contact" },
-  ]
+export default function Navigation() {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   return (
-    <nav className="fixed top-0 w-full bg-black/90 backdrop-blur-sm z-50 border-b border-blue-900/20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
-          <div className="text-2xl font-bold text-blue-400">DUNG NGUYEN</div>
+    <nav 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "py-4" : "py-8"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6">
+        <div 
+          className={`flex items-center justify-between px-6 py-3 rounded-full transition-all duration-500 ${
+            isScrolled 
+              ? "bg-[var(--bg-surface)]/80 backdrop-blur-md border border-[var(--border)] shadow-2xl" 
+              : "bg-transparent border border-transparent"
+          }`}
+        >
+          <motion.a 
+            href="#" 
+            className="text-xl font-bold tracking-tighter"
+            whileHover={{ scale: 1.05 }}
+          >
+            DUNG<span className="text-[var(--accent)]"></span>
+          </motion.a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <a
-                key={item.href}
+                key={item.name}
                 href={item.href}
-                className="text-gray-300 hover:text-blue-400 transition-colors duration-300"
+                className="text-sm font-medium text-[var(--fg-subtle)] hover:text-[var(--accent)] transition-colors uppercase tracking-widest"
               >
-                {item.label}
+                {item.name}
               </a>
             ))}
+            <a 
+              href="mailto:nguyendungx.work@gmail.com"
+              className="px-5 py-2 bg-[var(--fg-main)] text-[var(--bg-main)] rounded-full text-sm font-bold hover:bg-[var(--accent)] transition-colors"
+            >
+              Hire Me
+            </a>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-gray-300 hover:text-blue-400">
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
+          {/* Mobile Toggle */}
+          <button 
+            className="md:hidden text-[var(--fg-main)]"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
+      </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-gray-900/95 rounded-lg mb-4">
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute top-full left-6 right-6 mt-4 p-6 bg-[var(--bg-surface)] border border-[var(--border)] rounded-3xl md:hidden shadow-2xl z-50"
+          >
+            <div className="flex flex-col gap-6">
               {navItems.map((item) => (
                 <a
-                  key={item.href}
+                  key={item.name}
                   href={item.href}
-                  className="block px-3 py-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"
-                  onClick={() => setIsOpen(false)}
+                  className="text-lg font-medium text-[var(--fg-muted)]"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
-                  {item.label}
+                  {item.name}
                 </a>
               ))}
             </div>
-          </div>
+          </motion.div>
         )}
-      </div>
+      </AnimatePresence>
     </nav>
   )
 }

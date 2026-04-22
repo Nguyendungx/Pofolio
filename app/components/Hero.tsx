@@ -1,233 +1,166 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { motion } from "framer-motion"
-import { ChevronDown, Mail, Phone, Sparkles } from "lucide-react"
+import { motion, Variants, useScroll, useTransform } from "framer-motion"
+import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react"
+import Image from "next/image"
+import { useRef } from "react"
 
 export default function Hero() {
-  const containerVariants = {
+  const containerRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  })
+
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 200])
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -150])
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.2,
+        delayChildren: 0.2,
+        staggerChildren: 0.1,
       },
     },
   }
 
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+  const itemVariants: Variants = {
+    hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.5,
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1],
       },
     },
   }
 
-  const [windowSize, setWindowSize] = useState<{ width: number; height: number } | null>(null)
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setWindowSize({ width: window.innerWidth, height: window.innerHeight })
-    }
-  }, [])
-
   return (
-    <section className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-black via-gray-900 to-blue-900 overflow-hidden">
-      {/* Animated background particles */}
-      {windowSize && (
-        <div className="absolute inset-0">
-          {[...Array(50)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-blue-400 rounded-full"
-              initial={{
-                x: Math.random() * windowSize.width,
-                y: Math.random() * windowSize.height,
-                opacity: 0,
-              }}
-              animate={{
-                y: [null, -100, -200],
-                opacity: [0, 1, 0],
-              }}
-              transition={{
-                duration: Math.random() * 3 + 2,
-                repeat: Number.POSITIVE_INFINITY,
-                delay: Math.random() * 2,
-              }}
-            />
-          ))}
-        </div>
-      )}
-
-      {/* Floating geometric shapes */}
-      <motion.div
-        className="absolute top-20 left-20 w-20 h-20 border border-blue-400/30 rotate-45"
+    <section ref={containerRef} className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20">
+      {/* Dynamic Background Layer */}
+      <div className="absolute inset-0 grid-overlay opacity-20 pointer-events-none" />
+      <div className="absolute inset-0 noise-overlay pointer-events-none" />
+      <div className="absolute inset-0 binary-bg" />
+      
+      {/* Animated Orbs */}
+      <motion.div 
+        style={{ y: y1 }}
+        className="absolute top-[10%] right-[5%] w-[40vw] h-[40vw] bg-[var(--accent)]/10 rounded-full blur-[120px] pointer-events-none"
         animate={{
-          rotate: [45, 405],
           scale: [1, 1.1, 1],
+          opacity: [0.3, 0.5, 0.3],
         }}
-        transition={{
-          duration: 8,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "linear",
-        }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
-
-      <motion.div
-        className="absolute bottom-20 right-20 w-16 h-16 bg-blue-400/10 rounded-full"
+      <motion.div 
+        style={{ y: y2 }}
+        className="absolute bottom-[10%] left-[5%] w-[30vw] h-[30vw] bg-blue-600/5 rounded-full blur-[100px] pointer-events-none"
         animate={{
-          y: [-20, 20, -20],
-          x: [-10, 10, -10],
+          scale: [1.2, 1, 1.2],
+          opacity: [0.2, 0.4, 0.2],
         }}
-        transition={{
-          duration: 6,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
       />
 
-      <motion.div
-        className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <motion.div className="mb-8" variants={itemVariants}>
-          <motion.div
-            className="relative inline-block"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 300 }}
+      <div className="section-container relative z-10">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+        >
+          {/* Main Content Area */}
+          <div className="lg:col-span-7">
+            <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--bg-subtle)] border border-[var(--border)] mb-8">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent)] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--accent)]"></span>
+              </span>
+              <span className="text-xs font-medium tracking-wider uppercase text-[var(--fg-subtle)]">
+                Available for new opportunities
+              </span>
+            </motion.div>
+
+            <motion.h1 
+              variants={itemVariants}
+              className="text-6xl md:text-8xl lg:text-[10rem] font-bold leading-[0.85] mb-8"
+            >
+              <span className="block">DUNG</span>
+              <span className="block text-[var(--accent)]">NGUYEN</span>
+            </motion.h1>
+
+            <motion.div variants={itemVariants} className="max-w-2xl">
+              <p className="text-xl md:text-2xl text-[var(--fg-muted)] leading-relaxed mb-10">
+                A software engineer specializing in building high-performance web and mobile applications with 
+                <span className="text-[var(--fg-main)]"> .NET, React, and Salesforce.</span>
+              </p>
+            </motion.div>
+
+            <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
+              <a href="mailto:nguyendungx.work@gmail.com" className="btn-primary flex items-center gap-2 group">
+                Work with me
+                <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </a>
+              <a href="#projects" className="btn-secondary">
+                View Projects
+              </a>
+            </motion.div>
+          </div>
+
+          {/* Visual Side with Parallax Image */}
+          <motion.div 
+            style={{ y: y2, opacity }}
+            className="lg:col-span-5 hidden lg:block"
           >
-            <motion.div
-              className="absolute -inset-4 bg-gradient-to-r from-blue-400 to-blue-600 rounded-full blur-xl opacity-30"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.3, 0.5, 0.3],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-              }}
-            />
-            <div className="relative w-32 h-32 mx-auto bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center border-4 border-blue-300/50">
-              <span className="text-4xl font-bold text-white">DN</span>
-              <motion.div
-                className="absolute -top-2 -right-2"
-                animate={{
-                  rotate: [0, 360],
-                  scale: [1, 1.2, 1],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Number.POSITIVE_INFINITY,
-                  ease: "easeInOut",
-                }}
-              >
-                <Sparkles className="w-6 h-6 text-yellow-400" />
-              </motion.div>
+            <div className="relative group">
+               <div className="absolute inset-0 bg-[var(--accent)]/20 blur-[60px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+               <div className="glass-panel p-2 relative z-10 rotate-3 group-hover:rotate-0 transition-transform duration-700">
+                 <div className="relative aspect-square overflow-hidden rounded-2xl bg-[var(--bg-subtle)]">
+                   <Image 
+                     src="/hero.png" 
+                     alt="Tech Illustration" 
+                     fill
+                     className="object-cover"
+                     priority
+                   />
+                 </div>
+               </div>
+               
+               {/* Floating Badges */}
+               <motion.div 
+                 animate={{ y: [0, -10, 0] }}
+                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                 className="absolute -top-6 -right-6 glass-panel px-4 py-2 text-xs font-bold border-[var(--accent)]/50"
+               >
+                 .NET 8
+               </motion.div>
+               <motion.div 
+                 animate={{ y: [0, 10, 0] }}
+                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                 className="absolute -bottom-6 -left-6 glass-panel px-4 py-2 text-xs font-bold border-[var(--accent)]/50"
+               >
+                 REACT 19
+               </motion.div>
             </div>
           </motion.div>
         </motion.div>
+      </div>
 
-        <motion.h1 className="text-5xl md:text-7xl font-bold mb-4" variants={itemVariants}>
-          <motion.span
-            className="text-white inline-block"
-            whileHover={{
-              scale: 1.1,
-              textShadow: "0 0 20px rgba(59, 130, 246, 0.5)",
-            }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            DUNG
-          </motion.span>{" "}
-          <motion.span
-            className="text-blue-400 inline-block"
-            whileHover={{
-              scale: 1.1,
-              textShadow: "0 0 20px rgba(59, 130, 246, 0.8)",
-            }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            NGUYEN
-          </motion.span>
-        </motion.h1>
-
-        <motion.h2 className="text-2xl md:text-3xl text-blue-300 mb-6" variants={itemVariants}>
-          <motion.span
-            animate={{
-              backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
-            }}
-            className="bg-gradient-to-r from-blue-300 via-blue-400 to-blue-300 bg-clip-text text-transparent bg-[length:200%_100%]"
-          >
-            WEB/MOBILE DEVELOPER
-          </motion.span>
-        </motion.h2>
-
-        <motion.p
-          className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-8"
-          variants={itemVariants}
-        >
-          A motivated Web Developer/Mobile Developer with hands-on experience in ReactJS, JavaScript, NodeJS, and React Native
-        </motion.p>
-
-        <motion.div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
-          variants={itemVariants}
-        >
-          <motion.a
-            href="mailto:nguyendungx.work@gmail.com"
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg transition-colors duration-300 relative overflow-hidden group"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              initial={{ x: "-100%" }}
-              whileHover={{ x: "0%" }}
-              transition={{ duration: 0.3 }}
-            />
-            <Mail size={20} className="relative z-10" />
-            <span className="relative z-10">Get In Touch</span>
-          </motion.a>
-
-          <motion.a
-            href="tel:+84916149123"
-            className="flex items-center gap-2 border border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-black px-6 py-3 rounded-lg transition-all duration-300 relative overflow-hidden group"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Phone size={20} className="relative z-10" />
-            <span className="relative z-10">(+84) 916 149 123</span>
-          </motion.a>
-        </motion.div>
-
-        <motion.div className="text-gray-400" variants={itemVariants}>
-          Thu Duc City, Ho Chi Minh City
-        </motion.div>
-      </motion.div>
-
-      <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        animate={{
-          y: [0, -10, 0],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Number.POSITIVE_INFINITY,
-          ease: "easeInOut",
-        }}
+      {/* Subtle Scroll Indicator */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 1 }}
+        className="absolute bottom-12 right-12 hidden md:flex flex-col items-center gap-4"
       >
-        <ChevronDown size={32} className="text-blue-400" />
+        <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--fg-subtle)] rotate-90 origin-right translate-y-8">
+          Scroll
+        </span>
+        <div className="w-[1px] h-12 bg-gradient-to-b from-[var(--border)] to-transparent" />
       </motion.div>
     </section>
   )

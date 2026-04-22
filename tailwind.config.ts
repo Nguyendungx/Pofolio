@@ -1,7 +1,5 @@
 import type { Config } from "tailwindcss";
 
-// all in fixtures is set to tailwind v3 as interims solutions
-
 const config: Config = {
     darkMode: ["class"],
     content: [
@@ -90,7 +88,12 @@ const config: Config = {
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out'
-  		}
+  		},
+      fontFamily: {
+        heading: ["var(--font-epilogue)", "sans-serif"],
+        body: ["var(--font-manrope)", "sans-serif"],
+        sans: ["var(--font-manrope)", "sans-serif"],
+      },
   	}
   },
   plugins: [require("tailwindcss-animate")],

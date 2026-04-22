@@ -1,7 +1,9 @@
-// ProjectCard.tsx
+"use client"
+
 import { motion } from "framer-motion"
-import { ExternalLink, Github } from "lucide-react"
-import { Project } from "./projectsData"
+import { ExternalLink, Github, Terminal, Circle } from "lucide-react"
+import type { Project } from "../data/projectsData"
+import Image from "next/image"
 
 interface ProjectCardProps {
   project: Project
@@ -9,175 +11,108 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, index }: ProjectCardProps) {
-  const projectVariants = {
-    hidden: { y: 50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  }
+  // Map project titles to image filenames
+  const getImagePath = (title: string) => {
+    if (title.includes("Vehicle")) return "/project-dealership.png";
+    if (title.includes("Human Resource")) return "/project-hrm.png";
+    if (title.includes("Salesforce")) return "/project-salesforce.png";
+    if (title.includes("CRM")) return "/project-crm.png";
+    return null;
+  };
+
+  const imagePath = getImagePath(project.title);
 
   return (
-    <motion.div
-      className="bg-black/50 rounded-xl p-8 border border-blue-900/30 hover:border-blue-400/50 transition-all duration-300 relative overflow-hidden group"
-      variants={projectVariants}
-      whileHover={{ scale: 1.02, boxShadow: "0 25px 50px rgba(59, 130, 246, 0.15)" }}
-    >
-      {/* Animated background gradient */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-blue-400/5 via-transparent to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        initial={{ rotate: 0 }}
-        whileHover={{ rotate: 1 }}
-        transition={{ duration: 0.5 }}
-      />
+    <div className="glass-panel group hover:border-[var(--accent)]/50 transition-all duration-500 flex flex-col h-full bg-gradient-to-br from-[var(--bg-surface)] to-[var(--bg-main)]">
+      {/* Terminal Style Header */}
+      <div className="px-4 py-3 border-b border-[var(--border)] flex items-center justify-between bg-black/20">
+        <div className="flex gap-1.5">
+          <Circle size={10} className="fill-red-500/50 text-transparent" />
+          <Circle size={10} className="fill-yellow-500/50 text-transparent" />
+          <Circle size={10} className="fill-green-500/50 text-transparent" />
+        </div>
+        <div className="text-[10px] font-mono text-[var(--fg-subtle)] truncate px-4">
+          {project.title.toLowerCase().replace(/\s+/g, '-')}.exe
+        </div>
+        <Terminal size={12} className="text-[var(--fg-subtle)]" />
+      </div>
 
-      <div className="grid md:grid-cols-2 gap-8 relative z-10">
-        {/* LEFT COLUMN */}
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-        >
-          <div className="flex items-center justify-between mb-4">
-            <motion.h3 className="text-2xl font-bold text-blue-400" whileHover={{ scale: 1.05 }}>
-              {project.title}
-            </motion.h3>
-            <span className="text-sm text-gray-400">{project.period}</span>
+      {/* Card Header/Visual */}
+      <div className="p-1">
+        <div className="aspect-[16/9] bg-[var(--bg-subtle)] rounded-xl relative overflow-hidden flex items-center justify-center border border-[var(--border)]">
+          {imagePath ? (
+            <Image 
+              src={imagePath} 
+              alt={project.title}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+          ) : (
+            <Terminal size={64} className="text-[var(--fg-subtle)] opacity-20 group-hover:scale-110 group-hover:text-[var(--accent)] transition-all duration-700" />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-main)] via-transparent to-transparent opacity-60" />
+          
+          <div className="absolute top-4 left-4 flex gap-2">
+            {project.tech.split(",").slice(0, 3).map((t, i) => (
+              <span key={i} className="px-3 py-1 bg-black/60 backdrop-blur-md border border-white/10 text-[10px] uppercase tracking-wider rounded-full text-white">
+                {t.trim()}
+              </span>
+            ))}
           </div>
+        </div>
+      </div>
 
-          <div className="mb-4">
-            <span className="text-blue-300 font-semibold">Role: </span>
-            <span className="text-gray-300">{project.role}</span>
+      {/* Card Content */}
+      <div className="p-8 flex flex-col flex-grow">
+        <div className="flex justify-between items-start mb-4">
+          <div>
+            <div className="text-[var(--accent)] text-xs font-bold uppercase tracking-widest mb-1">{project.period}</div>
+            <h3 className="text-2xl font-bold leading-tight group-hover:text-[var(--accent)] transition-colors">{project.title}</h3>
           </div>
+        </div>
 
-          <div className="mb-6">
-            <span className="text-blue-300 font-semibold">Tech Stack: </span>
-            <span className="text-gray-300">{project.tech}</span>
-          </div>
+        <p className="text-[var(--fg-muted)] mb-8 line-clamp-3 text-sm leading-relaxed">
+          {project.description}
+        </p>
 
-          <motion.p
-            className="text-gray-300 mb-6"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-          >
-            {project.description}
-          </motion.p>
-
-          {/* LINKS */}
-          <motion.div
-            className="flex flex-wrap gap-3"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            viewport={{ once: true }}
-          >
-            {project.links.web && (
-              <motion.a
-                href={project.links.web}
-                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors duration-300 relative overflow-hidden group"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <motion.div
-                  className="absolute inset-0 bg-blue-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: "0%" }}
-                  transition={{ duration: 0.3 }}
-                />
-                <ExternalLink size={16} className="relative z-10" />
-                <span className="relative z-10">Web</span>
-              </motion.a>
-            )}
-
-            {project.links.mobile && (
-              <motion.a
-                href={project.links.mobile}
-                className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg transition-colors duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Github size={16} />
-                Mobile
-              </motion.a>
-            )}
-
-            {project.links.frontend && (
-              <motion.a
-                href={project.links.frontend}
-                className="flex items-center gap-2 bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg transition-colors duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Github size={16} />
-                Frontend
-              </motion.a>
-            )}
-
-            {project.links.backend && (
-              <motion.a
-                href={project.links.backend}
-                className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg transition-colors duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Github size={16} />
-                Backend
-              </motion.a>
-            )}
-
-            {project.links.demo && (
-              <motion.a
-                href={project.links.demo}
-                className="flex items-center gap-2 border border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-black px-4 py-2 rounded-lg transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <ExternalLink size={16} />
-                Demo
-              </motion.a>
-            )}
-          </motion.div>
-        </motion.div>
-
-        {/* RIGHT COLUMN */}
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-        >
-          <h4 className="text-lg font-semibold text-blue-400 mb-4">Key Features:</h4>
+        {/* Features List */}
+        <div className="space-y-3 mb-8 flex-grow">
+          <h4 className="text-[10px] uppercase tracking-[0.2em] font-bold text-[var(--fg-subtle)]">Key Contributions</h4>
           <ul className="space-y-2">
-            {project.features.map((feature, featureIndex) => (
-              <motion.li
-                key={featureIndex}
-                className="text-gray-300 text-sm flex items-start"
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: 0.6 + featureIndex * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <motion.span
-                  className="text-blue-400 mr-2 mt-1"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{
-                    duration: 2,
-                    repeat: Number.POSITIVE_INFINITY,
-                    delay: featureIndex * 0.2,
-                  }}
-                >
-                  •
-                </motion.span>
+            {project.features.slice(0, 3).map((feature, i) => (
+              <li key={i} className="flex gap-2 text-xs text-[var(--fg-subtle)] leading-snug">
+                <div className="h-1 w-1 rounded-full bg-[var(--accent)] mt-1.5 shrink-0" />
                 {feature}
-              </motion.li>
+              </li>
             ))}
           </ul>
-        </motion.div>
+        </div>
+
+        {/* Links */}
+        <div className="flex items-center gap-4 pt-6 border-t border-[var(--border)]">
+          {project.links.demo && (
+            <a 
+              href={project.links.demo} 
+              className="text-sm font-bold flex items-center gap-2 hover:text-[var(--accent)] transition-colors"
+            >
+              Live Demo <ExternalLink size={14} />
+            </a>
+          )}
+          {(project.links.web || project.links.frontend || project.links.backend) && (
+            <a 
+              href={project.links.web || project.links.frontend || project.links.backend} 
+              className="text-sm font-bold flex items-center gap-2 hover:text-[var(--accent)] transition-colors"
+            >
+              GitHub <Github size={14} />
+            </a>
+          )}
+          {!project.links.demo && !project.links.web && !project.links.frontend && !project.links.backend && (
+            <span className="text-[10px] uppercase tracking-widest text-[var(--fg-subtle)] italic">
+              Proprietary Enterprise Software
+            </span>
+          )}
+        </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
